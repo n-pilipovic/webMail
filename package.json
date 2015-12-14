@@ -27,7 +27,9 @@
   "homepage": "https://github.com/n-pilipovic/webMail#readme",
   "dependencies": {
     "angular2": "2.0.0-alpha.44",
+    "bootstrap": "^3.3.6",
     "es6-shim": "^0.33.13",
+    "jquery": "^2.1.4",
     "systemjs": "0.19.2"
   },
   "devDependencies": {

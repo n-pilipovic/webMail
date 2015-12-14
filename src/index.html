@@ -5,14 +5,21 @@
     <script src="../node_modules/systemjs/dist/system.js"></script>
     <script src="../node_modules/typescript/lib/typescript.js"></script>
     <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="../node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="lib/css/style.css" rel="stylesheet">
     <script>
       System.config({
         packages: {'app': {defaultExtension: 'js'}}
       });
-      System.import('app/webmail');
+      System.import('app/components/webMailApp/webMail.component');
     </script>
   </head>
   <body>
-    <webmail>loading...</webmail>
+    <div class="webmail-container">
+      <webmail>loading...</webmail>
+    </div>
   </body>
 </html>

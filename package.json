@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -p src -w",
-    "start": "live-server --open=src"
+    "api": "cd middleware && npm install && node server.js",
+    "client": "live-server --open=src",
+    "start": "npm run client"
   },
   "repository": {
     "type": "git",
@@ -27,9 +29,15 @@
   "homepage": "https://github.com/n-pilipovic/webMail#readme",
   "dependencies": {
     "angular2": "2.0.0-alpha.44",
+    "body-parser": "^1.14.1",
     "bootstrap": "^3.3.6",
+    "errorhandler": "^1.4.2",
     "es6-shim": "^0.33.13",
+    "express": "^4.13.3",
+    "google-auth-library": "^0.9.7",
+    "googleapis": "^2.1.6",
     "jquery": "^2.1.4",
+    "morgan": "^1.6.1",
     "systemjs": "0.19.2"
   },
   "devDependencies": {

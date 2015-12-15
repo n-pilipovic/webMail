@@ -6,5 +6,5 @@ import {InboxModel} from '../../models/inbox/inbox.model';
 	templateUrl: 'app/components/inbox/inbox.component.html'
 })
 export class Inbox {
-	message:string = 'inbox';
+	message:string = 'inboxaaa';
 }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -p src -w",
-    "api": "cd middleware && npm install && node server.js",
+    "api": "cd middleware && npm install && cd googleApi && node gmailAPI.js && cd .. && node server.js",
     "client": "live-server --open=src",
     "start": "npm run client"
   },

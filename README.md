@@ -1,7 +1,7 @@
 # Small installation and running guide for WebMail Client application
 
 ## PREREQUISITS:
-  * You need to have [node.js](https://nodejs.org/en/) installed in order to install and run ** WEBMAIL CLIENT APP **
+  * You need to have [node.js](https://nodejs.org/en/) installed in order to install and run **WEBMAIL CLIENT APP**
 
 ## 1. Instalation:
   * Open command prompt and run: **` npm install `**

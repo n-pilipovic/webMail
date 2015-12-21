@@ -7,7 +7,7 @@ var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 var thisAuthClient = function() {
   var auth =  new google.auth.JWT(
         'webmail@webmail-1156.iam.gserviceaccount.com',
-        './googleApi/webMail-key.pem',
+        './googleAPI/webMail-key.pem',
         null,
         // Scopes can be specified either as an array or as a single, space-delimited string
         SCOPES,

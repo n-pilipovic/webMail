@@ -1,10 +1,13 @@
 import {bootstrap, bind, Component} from 'angular2/angular2';
+import {HTTP_BINDINGS} from "angular2/http";
 import {RouteConfig, RouteParams, ROUTER_DIRECTIVES, APP_BASE_HREF, ROUTER_BINDINGS} from 'angular2/router';
 import {Menu} from '../menu/menu.component';
 import {Inbox} from '../inbox/inbox.component';
 import {Sent} from '../sent/sent.component';
 import {WriteMail} from '../writeMail/writeMail.component';
 import {Drafts} from '../drafts/drafts.component';
+import {Labels} from '../labels/labels.component';
+import {GmailAPI} from '../../services/gmailApi.service';
 
 @Component({
 	selector: 'webmail',
@@ -17,7 +20,8 @@ import {Drafts} from '../drafts/drafts.component';
 	{path: '/new', component: WriteMail, as: 'Write'},
 	{path: '/inbox', component: Inbox, as: 'Inbox'},
 	{path: '/sent', component: WriteMail, as: 'Sent'},
-	{path: '/drafts', component: Drafts, as: 'Drafts'}
+	{path: '/drafts', component: Drafts, as: 'Drafts'},
+	{path: '/labels', component: Labels, as: 'Labels'}
 ])
 export class WebMailApp {
 	public title:string;
@@ -27,4 +31,4 @@ export class WebMailApp {
 	
 }
 
-bootstrap(WebMailApp, [ROUTER_BINDINGS, bind(APP_BASE_HREF).toValue(location.pathname)]);
+bootstrap(WebMailApp, [HTTP_BINDINGS, ROUTER_BINDINGS, bind(APP_BASE_HREF).toValue(location.pathname), GmailAPI]);

@@ -1,7 +1,7 @@
 var express = require('express'),
 	app = express(),
 	bodyParser = require('body-parser'),
-	gmailAPI = require('./googleApi/gmailAPI');
+	gmailAPI = require('./googleAPI/gmailAPI');
 	
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -12,6 +12,8 @@ var router = express.Router();
 
 router.use(function(req, res, next) {
 	console.log(req);
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
 
@@ -22,7 +24,7 @@ router.get('/', function(req, res) {
 router.get('/labels', function(req, res) {
 	gmailAPI.getAllLabels(function(data) {
 		console.log(data);
-		res.json({message: data});
+		res.json(data);
 	});
 })
 

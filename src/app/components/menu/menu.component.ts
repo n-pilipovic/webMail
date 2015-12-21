@@ -17,5 +17,6 @@ var MENUITEMS:MenuItem[] = [
 	new MenuItem('Write Mail', './Write'),
 	new MenuItem('Inbox', './Inbox'),
 	new MenuItem('Sent', './Sent'),
-	new MenuItem('Drafts', './Drafts')
+	new MenuItem('Drafts', './Drafts'),
+	new MenuItem('Labels', './Labels')
 ]

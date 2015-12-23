@@ -10,8 +10,12 @@ export class GmailAPI {
         this.http = http;
     }
 
-    public getAllLabels() {
-        return this.http.get('http://localhost:3000/api/labels')
-                        .map((res) => { return res.json(); });
+    public authenticateUser() {
+        return this.http.get('http://localhost:3000/api/auth/google');
+    }
+    
+    public authenticateUserCallback() {
+        return this.http.get('http://localhost:3000/api/auth/google/callback')
+                        .map((res) => { console.log(res); return res.json(); });
     }
 }

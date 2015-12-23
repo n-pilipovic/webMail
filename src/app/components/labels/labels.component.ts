@@ -9,9 +9,15 @@ import {GmailAPI} from '../../services/gmailApi.service';
 })
 export class Labels {
 
-    public labels:Array;
+    public labels:Array<any>;
+    public user:any;
 
     constructor(private gmailAPI:GmailAPI) {
-        gmailAPI.getAllLabels().subscribe((res) => this.labels = res);
+        gmailAPI.authenticateUser();
+        // gmailAPI.authenticateUserCallback().subscribe(
+        //                                         res => console.log(res),
+        //                                         console.error,
+        //                                         () => console.log('Authenticated!')
+        //                                    );
     }
 }

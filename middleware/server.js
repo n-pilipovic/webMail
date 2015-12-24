@@ -13,19 +13,20 @@ var port = process.env.PORT || 3000;
 var router = express.Router();
 
 router.use(function(req, res, next) {
-	console.log(req);
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "*");
 	next();
 });
 
-router.get('/', function(req, res) {
-	res.json({message: 'Hello from nodejs API!', user: req.user});
-});
+router.get('/', 
+            function(req, res) {
+	           res.json({message: 'Hello from nodejs API!', user: req.user});
+            });
 
-router.get('/login', function(req, res) {
-	res.json({user: req.user});
-});
+router.get('/login', 
+            function(req, res) {
+	           res.json({user: req.user});
+            });
 
 router.get('/auth/google', 
             gmailAPI.handleAuthenticateUser(), 

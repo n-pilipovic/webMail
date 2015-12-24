@@ -5,7 +5,8 @@ import {GmailAPI} from '../../services/gmailApi.service';
     selector: 'labels',
     templateUrl: 'app/components/labels/labels.component.html',
     styleUrls: ['app/components/labels/labels.component.css'],
-    directives: [CORE_DIRECTIVES]
+    directives: [CORE_DIRECTIVES],
+    providers: [GmailAPI]
 })
 export class Labels {
 

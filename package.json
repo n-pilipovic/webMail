@@ -4,9 +4,9 @@
   "description": "Web Mail Client written in Angular 2.0 and TypeScript, with NodeJS and Express",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc -p src -w",
+    "tsc": "tsc -p webMailApp -w",
     "api": "cd middleware && npm install && node server.js",
-    "client": "live-server --open=src",
+    "client": "live-server --open=webMailApp",
     "start": "npm run client"
   },
   "repository": {

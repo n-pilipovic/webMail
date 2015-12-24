@@ -34,7 +34,10 @@ passport.use(new GoogleStrategy(
 ));
 
 var handleAuthenticateUser = function() {
-    return passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/gmail.compose'] })
+    return passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 
+                                                     'https://www.googleapis.com/auth/gmail.modify', 
+                                                     'https://www.googleapis.com/auth/gmail.compose'] 
+                                                     });
 };
 
 var handleAuthenticateUserCallback = function() {

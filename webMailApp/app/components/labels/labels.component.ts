@@ -12,13 +12,9 @@ export class Labels {
 
     public labels:Array<any>;
     public user:any;
+    public message:string;
 
     constructor(private gmailAPI:GmailAPI) {
         gmailAPI.authenticateUser();
-        // gmailAPI.authenticateUserCallback().subscribe(
-        //                                         res => console.log(res),
-        //                                         console.error,
-        //                                         () => console.log('Authenticated!')
-        //                                    );
     }
 }

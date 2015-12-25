@@ -13,11 +13,6 @@ var Labels = (function () {
     function Labels(gmailAPI) {
         this.gmailAPI = gmailAPI;
         gmailAPI.authenticateUser();
-        // gmailAPI.authenticateUserCallback().subscribe(
-        //                                         res => console.log(res),
-        //                                         console.error,
-        //                                         () => console.log('Authenticated!')
-        //                                    );
     }
     Labels = __decorate([
         angular2_1.Component({

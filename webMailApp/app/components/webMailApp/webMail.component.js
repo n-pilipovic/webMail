@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var angular2_1 = require('angular2/angular2');
 var http_1 = require("angular2/http");
 var router_1 = require('angular2/router');
+var googleAuth_service_1 = require('../../services/googleAuth.service');
 var menu_component_1 = require('../menu/menu.component');
 var login_component_1 = require('../login/login.component');
 var inbox_component_1 = require('../inbox/inbox.component');
@@ -28,7 +29,7 @@ var WebMailApp = (function () {
             directives: [router_1.ROUTER_DIRECTIVES, inbox_component_1.Inbox, menu_component_1.Menu]
         }),
         router_1.RouteConfig([
-            { path: '/', redirectTo: '/login' },
+            { path: '/', redirectTo: '/inbox' },
             { path: '/login', component: login_component_1.Login, as: 'Login' },
             { path: '/new', component: writeMail_component_1.WriteMail, as: 'Write' },
             { path: '/inbox', component: inbox_component_1.Inbox, as: 'Inbox' },
@@ -41,5 +42,5 @@ var WebMailApp = (function () {
     return WebMailApp;
 })();
 exports.WebMailApp = WebMailApp;
-angular2_1.bootstrap(WebMailApp, [http_1.HTTP_BINDINGS, router_1.ROUTER_PROVIDERS, angular2_1.provide(router_1.LocationStrategy, { useClass: router_1.HashLocationStrategy })]);
+angular2_1.bootstrap(WebMailApp, [http_1.HTTP_BINDINGS, router_1.ROUTER_PROVIDERS, angular2_1.provide(router_1.LocationStrategy, { useClass: router_1.HashLocationStrategy }), googleAuth_service_1.GoogleAuth]);
 //# sourceMappingURL=webMail.component.js.map

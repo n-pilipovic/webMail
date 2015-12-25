@@ -1,27 +1,25 @@
-import {Injectable} from 'angular2/angular2';
+import {Injectable, Inject} from 'angular2/angular2';
 import {Http} from 'angular2/http';
+import {GoogleAuth} from './googleAuth.service';
 
 @Injectable()
 export class GmailAPI {
 
     private http:Http;
+    private googleAuth:GoogleAuth;
     private serviceRoot:string;
 
-    constructor(http:Http) {
+    constructor(http:Http, @Inject(GoogleAuth) googleAuth:GoogleAuth) {
         this.http = http;
+        this.googleAuth = googleAuth;
         this.serviceRoot = 'http://localhost:3000/api';
     }
 
     public authenticateUser() {
-        return this.http.get(this.serviceRoot + '/auth/google');
-    }
-    
-    public authenticateUserCallback() {
-        return this.http.get(this.serviceRoot + '/auth/google/callback')
-                        .map((res) => { console.log(res); return res.json(); });
+        this.googleAuth.handleAuthClick();
     }
     
     public getUserDetails() {
-        return this.http.get('')
+        return this.googleAuth.getGoogleClientId();
     }
 }

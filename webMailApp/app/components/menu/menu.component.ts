@@ -1,4 +1,4 @@
-import {Component, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {MenuItem} from '../../models/menuItem/menuItem.model';
 import {Inbox} from '../inbox/inbox.component';
@@ -7,7 +7,7 @@ import {Inbox} from '../inbox/inbox.component';
 	selector: 'menu',
 	templateUrl: 'app/components/menu/menu.component.html',
 	styleUrls: ['app/components/menu/menu.component.css'],
-	directives: [CORE_DIRECTIVES, ROUTER_DIRECTIVES]
+	directives: [ROUTER_DIRECTIVES]
 })
 export class Menu {
 	public menuItems = MENUITEMS;

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../../models/menuItem/menuItem.model'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../login/login.component', '../webMail/webMail.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,8 +8,8 @@ System.register(['angular2/core', 'angular2/router', '../../models/menuItem/menu
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, menuItem_model_1;
-    var Menu, MENUITEMS;
+    var core_1, router_1, login_component_1, webMail_component_1;
+    var AppBootstrap;
     return {
         setters:[
             function (core_1_1) {
@@ -18,34 +18,32 @@ System.register(['angular2/core', 'angular2/router', '../../models/menuItem/menu
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (menuItem_model_1_1) {
-                menuItem_model_1 = menuItem_model_1_1;
+            function (login_component_1_1) {
+                login_component_1 = login_component_1_1;
+            },
+            function (webMail_component_1_1) {
+                webMail_component_1 = webMail_component_1_1;
             }],
         execute: function() {
-            Menu = (function () {
-                function Menu() {
-                    this.menuItems = MENUITEMS;
+            AppBootstrap = (function () {
+                function AppBootstrap() {
                 }
-                Menu = __decorate([
+                AppBootstrap = __decorate([
                     core_1.Component({
-                        selector: 'menu',
-                        templateUrl: 'app/components/menu/menu.component.html',
-                        styleUrls: ['app/components/menu/menu.component.css'],
+                        selector: 'webmail',
+                        templateUrl: 'app/components/appBootstrap/appBootstrap.component.html',
                         directives: [router_1.ROUTER_DIRECTIVES]
-                    }), 
+                    }),
+                    router_1.RouteConfig([
+                        { path: '/login', component: login_component_1.Login, as: 'Login', useAsDefault: true },
+                        { path: '/mail/...', component: webMail_component_1.WebMail, as: 'WebMail' }
+                    ]), 
                     __metadata('design:paramtypes', [])
-                ], Menu);
-                return Menu;
+                ], AppBootstrap);
+                return AppBootstrap;
             })();
-            exports_1("Menu", Menu);
-            MENUITEMS = [
-                new menuItem_model_1.MenuItem('Write Mail', './Write'),
-                new menuItem_model_1.MenuItem('Inbox', './Inbox'),
-                new menuItem_model_1.MenuItem('Sent', './Sent'),
-                new menuItem_model_1.MenuItem('Drafts', './Drafts'),
-                new menuItem_model_1.MenuItem('Labels', './Labels')
-            ];
+            exports_1("AppBootstrap", AppBootstrap);
         }
     }
 });
-//# sourceMappingURL=menu.component.js.map
+//# sourceMappingURL=appBootstrap.component.js.map

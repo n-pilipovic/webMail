@@ -1,4 +1,3 @@
-<!--<div *ng-for="#item of menuItems">{{item.name}}</div>-->
 <ul class="webmail-menu-list">
-	<li *ng-for="#item of menuItems"><a [router-link]="[item.path]">{{item.name}}</a></li>
+	<li *ngFor="#item of menuItems"><a [routerLink]="[item.path]">{{item.name}}</a></li>
 </ul>

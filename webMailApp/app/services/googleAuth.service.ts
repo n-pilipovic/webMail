@@ -1,25 +1,21 @@
-
-
-import {Inject} from 'angular2/angular2';
+import {Injectable} from 'angular2/core';
 import {Router} from 'angular2/router';
 import {Http} from 'angular2/http';
+import 'rxjs/Rx';
 
+@Injectable()
 export class GoogleAuth {
 
-    private http:Http;
-    public router:Router;
     private serviceRoot:string;
     private client_ID:string;
-    private scopes:Array<string>
+    private scopes:string;
 
-    constructor(@Inject(Http) http:Http, @Inject(Router) router:Router) {
-        this.http = http;
-        this.router = router;
+    constructor(public _http:Http, public _router:Router) {
         this.serviceRoot = 'http://localhost:3000/api';
-        this.scopes = ['https://www.googleapis.com/auth/gmail.readonly'];
-        this.http.get('../../webMailApp/lib/googleCredentials.json')
+        this.scopes = 'https://www.googleapis.com/auth/gmail.readonly';
+        this._http.get('../../webMailApp/lib/googleCredentials.json')
                 .map(res => res.json())
-                .subscribe(data => {this.client_ID = data.client_ID;});
+                .subscribe(data => this.client_ID = data.client_ID);
     }
     
     public getGoogleClientId():string {
@@ -27,28 +23,8 @@ export class GoogleAuth {
     };
     
     public handleAuthClick() {
-        gapi.auth.authorize({
-            client_id: this.client_ID, 
-            scope: this.scopes,
-            immediate: true
-        }, this.handleAuthResult);
-        return false;
+        return this.client_ID;
     };
-    
-    private handleAuthResult(result) {
-        if (result && !result.error) {
-            console.log(result);
-            this.loadGmailApi;
-        } else {
-            // window.alert('Not Authorized to Google\'s Services!');
-            this.router.navigate(['/login']);
-        }
-    }
-    
-    private loadGmailApi() {
-        console.log('inside');
-        gapi.client.load('gmail', 'v1');
-        this.router.navigate(['/']);
-    }
+
 
 }

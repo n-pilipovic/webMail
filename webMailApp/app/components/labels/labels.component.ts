@@ -1,11 +1,10 @@
-import {Component, CORE_DIRECTIVES} from 'angular2/angular2';
+import {Component} from 'angular2/core';
 import {GmailAPI} from '../../services/gmailApi.service';
 
 @Component({
     selector: 'labels',
     templateUrl: 'app/components/labels/labels.component.html',
     styleUrls: ['app/components/labels/labels.component.css'],
-    directives: [CORE_DIRECTIVES],
     providers: [GmailAPI]
 })
 export class Labels {
@@ -15,6 +14,6 @@ export class Labels {
     public message:string;
 
     constructor(private gmailAPI:GmailAPI) {
-        gmailAPI.authenticateUser();
+        //gmailAPI.authenticateUser();
     }
 }

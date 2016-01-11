@@ -1,7 +1,15 @@
-var InboxModel = (function () {
-    function InboxModel() {
+System.register([], function(exports_1) {
+    var InboxModel;
+    return {
+        setters:[],
+        execute: function() {
+            InboxModel = (function () {
+                function InboxModel() {
+                }
+                return InboxModel;
+            })();
+            exports_1("InboxModel", InboxModel);
+        }
     }
-    return InboxModel;
-})();
-exports.InboxModel = InboxModel;
+});
 //# sourceMappingURL=inbox.model.js.map

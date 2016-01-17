@@ -14,6 +14,6 @@ export class Login {
     }
 
 	loginUser() {
-		alert(this._gmailAPI.authenticateUser());
+		this._gmailAPI.authenticateUser();
 	}
 }

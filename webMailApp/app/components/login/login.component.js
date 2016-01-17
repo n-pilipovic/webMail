@@ -24,7 +24,7 @@ System.register(['angular2/core', '../../services/gmailApi.service'], function(e
                     this._gmailAPI = _gmailAPI;
                 }
                 Login.prototype.loginUser = function () {
-                    alert(this._gmailAPI.authenticateUser());
+                    this._gmailAPI.authenticateUser();
                 };
                 Login = __decorate([
                     core_1.Component({

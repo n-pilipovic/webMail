@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1) {
+System.register(['angular2/core', '../../services/gmailApi.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,24 +8,30 @@ System.register(['angular2/core'], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, gmailApi_service_1;
     var Inbox;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (gmailApi_service_1_1) {
+                gmailApi_service_1 = gmailApi_service_1_1;
             }],
         execute: function() {
             Inbox = (function () {
-                function Inbox() {
+                function Inbox(_gmailAPI) {
+                    this._gmailAPI = _gmailAPI;
                     this.message = 'inboxaaa';
+                    this._gmailAPI.getAllMails();
                 }
                 Inbox = __decorate([
                     core_1.Component({
                         selector: 'inbox',
-                        templateUrl: 'app/components/inbox/inbox.component.html'
+                        templateUrl: 'app/components/inbox/inbox.component.html',
+                        providers: [gmailApi_service_1.GmailAPI]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [gmailApi_service_1.GmailAPI])
                 ], Inbox);
                 return Inbox;
             })();

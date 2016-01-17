@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../login/login.component', '../webMail/webMail.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../login/login.component', '../webMail/webMail.component', '../../services/googleAuth.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', '../login/login.component',
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, login_component_1, webMail_component_1;
+    var core_1, router_1, login_component_1, webMail_component_1, googleAuth_service_1;
     var AppBootstrap;
     return {
         setters:[
@@ -23,10 +23,19 @@ System.register(['angular2/core', 'angular2/router', '../login/login.component',
             },
             function (webMail_component_1_1) {
                 webMail_component_1 = webMail_component_1_1;
+            },
+            function (googleAuth_service_1_1) {
+                googleAuth_service_1 = googleAuth_service_1_1;
             }],
         execute: function() {
             AppBootstrap = (function () {
-                function AppBootstrap() {
+                function AppBootstrap(router, auth) {
+                    if (auth.access_token !== null) {
+                        router.navigate(['/WebMail']);
+                    }
+                    else {
+                        router.navigate(['/Login']);
+                    }
                 }
                 AppBootstrap = __decorate([
                     core_1.Component({
@@ -38,7 +47,7 @@ System.register(['angular2/core', 'angular2/router', '../login/login.component',
                         { path: '/login', component: login_component_1.Login, as: 'Login', useAsDefault: true },
                         { path: '/mail/...', component: webMail_component_1.WebMail, as: 'WebMail' }
                     ]), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [router_1.Router, googleAuth_service_1.GoogleAuth])
                 ], AppBootstrap);
                 return AppBootstrap;
             })();

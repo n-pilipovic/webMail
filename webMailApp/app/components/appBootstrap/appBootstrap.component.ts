@@ -1,8 +1,9 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 
 import {Login} from '../login/login.component';
 import {WebMail} from '../webMail/webMail.component';
+import {GoogleAuth} from '../../services/googleAuth.service';
 
 @Component({
     selector: 'webmail',
@@ -14,5 +15,11 @@ import {WebMail} from '../webMail/webMail.component';
     {path: '/mail/...', component: WebMail, as: 'WebMail'}
 ])
 export class AppBootstrap {
-    constructor() {}
+    constructor(router:Router, auth:GoogleAuth) {
+        if (auth.access_token !== null) {
+            router.navigate(['/WebMail']);
+        } else {
+            router.navigate(['/Login']);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
+import {Auth} from '../auth/auth.component';
 import {Menu} from '../menu/menu.component';
 import {Inbox} from '../inbox/inbox.component';
 import {Sent} from '../sent/sent.component';

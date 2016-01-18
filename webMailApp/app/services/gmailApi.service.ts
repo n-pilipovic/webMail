@@ -2,6 +2,8 @@ import {Injectable} from 'angular2/core';
 import {Http} from 'angular2/http';
 import {GoogleAuth} from './googleAuth.service';
 
+import {Observable} from 'rxjs/Observable';
+
 import {googleHeader} from '../common/headers/google.header';
 
 @Injectable()
@@ -18,14 +20,17 @@ export class GmailAPI {
     }
 
     public getAllMails() {
-        this._http.get(this.gmailRoot + '/messages', {headers: googleHeader})
-                    .map(res => res.json())
-                    .flatMap(res => {
-                        for(var message in res.messages) {
-                            return this._http.get(this.gmailRoot + '/messages/' + res.messages[message].id, {headers: googleHeader});
+        this._http.get(this.gmailRoot + '/messages', {headers: googleHeader}).toPromise()
+                    .then(res => {
+                            var requests = [];
+                            for(var message in res.json().messages) {
+                                requests.push(this._http.get(this.gmailRoot + '/messages/' + res.json().messages[message].id, {headers: googleHeader}).map(res => res.json()));
+                            }
+                            Observable.forkJoin(
+                                requests
+                            ).subscribe(data => console.log(data));
                         }
-                    })
-                    .map(res => res.json())
-                    .subscribe(data => console.log(data));
+                    );
+
     }
 }

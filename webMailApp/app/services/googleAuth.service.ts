@@ -25,7 +25,7 @@ export class GoogleAuth {
     constructor(private _http:Http, private _router:Router) {
         this.app_API_root = 'https://localhost:8080/api';
         this.authRoot = 'https://accounts.google.com/o/oauth2/v2/auth?';
-        this.authScope = 'email profile https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly';
+        this.authScope = 'email profile https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose';
         this.initialAppState = 'home';
         this.redirect_uri = 'https://localhost:8080/api/googleAuthCallback';
         this.response_type = 'code';

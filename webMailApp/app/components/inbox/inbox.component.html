@@ -1,1 +1,3 @@
-{{message}}
+<ul class="webmail-mail-list">
+	<li *ngFor="#mail of allMails"><a [routerLink]="[mail.id]">From: {{mail.from}} -- Subject: {{mail.subject}} -- Date: {{mail.date}}</a></li>
+</ul>

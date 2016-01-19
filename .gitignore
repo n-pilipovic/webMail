@@ -2,4 +2,5 @@
 /webMailApp/**/*.js
 /webMailApp/**/*.js.map
 .idea/
+.vscode/
 npm-debug.log

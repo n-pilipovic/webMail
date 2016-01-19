@@ -6,5 +6,6 @@ import {bootstrap} from 'angular2/platform/browser';
 import {AppBootstrap} from './components/appBootstrap/appBootstrap.component';
 import {GoogleAuth} from './services/googleAuth.service';
 import {GmailAPI} from './services/gmailApi.service';
+import {MailHelper} from './utils/mail.helper';
 
-bootstrap(AppBootstrap, [HTTP_BINDINGS, ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy}), GmailAPI, GoogleAuth]);
+bootstrap(AppBootstrap, [HTTP_BINDINGS, ROUTER_PROVIDERS, provide(LocationStrategy, {useClass: HashLocationStrategy}), GmailAPI, GoogleAuth, MailHelper]);

@@ -47,9 +47,8 @@ System.register(['angular2/core', 'angular2/router', '../menu/menu.component', '
                         directives: [router_1.ROUTER_DIRECTIVES, menu_component_1.Menu]
                     }),
                     router_1.RouteConfig([
-                        //{path: '/', redirectTo: ['Inbox']},
                         { path: '/new', component: writeMail_component_1.WriteMail, as: 'Write' },
-                        { path: '/inbox', component: inbox_component_1.Inbox, as: 'Inbox', useAsDefault: true },
+                        { path: '/inbox/...', component: inbox_component_1.Inbox, as: 'Inbox', useAsDefault: true },
                         { path: '/sent', component: sent_component_1.Sent, as: 'Sent' },
                         { path: '/drafts', component: drafts_component_1.Drafts, as: 'Drafts' },
                         { path: '/labels', component: labels_component_1.Labels, as: 'Labels' }

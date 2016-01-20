@@ -32,7 +32,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx']
                     this.googleCode = null;
                     this.app_API_root = 'https://localhost:8080/api';
                     this.authRoot = 'https://accounts.google.com/o/oauth2/v2/auth?';
-                    this.authScope = 'email profile https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly';
+                    this.authScope = 'email profile https://mail.google.com/ https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.compose';
                     this.initialAppState = 'home';
                     this.redirect_uri = 'https://localhost:8080/api/googleAuthCallback';
                     this.response_type = 'code';
@@ -67,7 +67,15 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx']
                     var tokenData = ''.concat('redirect_uri=', this.redirect_uri, '&grant_type=authorization_code');
                     this._http.get(this.app_API_root + '/googleAuthCode')
                         .map(function (res) { return res.json(); })
-                        .flatMap(function (res) { tokenData = tokenData.concat('&code=', res.code); return _this._http.get('../../webMailApp/lib/googleCredentials.json'); })
+                        .flatMap(function (res) {
+                        if (res.code) {
+                            tokenData = tokenData.concat('&code=', res.code);
+                            return _this._http.get('../../webMailApp/lib/googleCredentials.json');
+                        }
+                        else {
+                            _this._router.navigate(['/Login']);
+                        }
+                    })
                         .map(function (res) { return res.json(); })
                         .flatMap(function (res) {
                         tokenData = tokenData.concat('&client_id=', res.client_ID, '&client_secret=', res.client_secret);

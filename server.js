@@ -28,6 +28,7 @@ app.use(errorHandler({
 }));
 
 app.get('/webMailApp', function (req, res) {
+    googleCode = null;
     res.redirect('/index.html');
 });
 

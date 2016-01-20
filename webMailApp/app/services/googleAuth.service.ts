@@ -68,7 +68,14 @@ export class GoogleAuth {
                                   '&grant_type=authorization_code');
         this._http.get(this.app_API_root + '/googleAuthCode')
             .map(res => res.json())
-            .flatMap(res => {tokenData = tokenData.concat('&code=', res.code); return this._http.get('../../webMailApp/lib/googleCredentials.json');})
+            .flatMap(res => {
+                if(res.code) {
+                    tokenData = tokenData.concat('&code=', res.code); 
+                    return this._http.get('../../webMailApp/lib/googleCredentials.json');
+                } else {
+                    this._router.navigate(['/Login']);
+                }
+            })
             .map(res => res.json())
             .flatMap(res => {tokenData = tokenData.concat('&client_id=', res.client_ID, '&client_secret=', res.client_secret);
                              return this._http.post(this.token_uri, tokenData, {headers: headers});})

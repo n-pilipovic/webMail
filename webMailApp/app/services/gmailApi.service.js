@@ -41,13 +41,13 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../common
                     this._mailHelper = _mailHelper;
                     this.gmailRoot = 'https://www.googleapis.com/gmail/v1/users/me';
                     this.recieveMailInFormat = 'full';
+                    this.mails = new Array();
                 }
                 GmailAPI.prototype.authenticateUser = function () {
                     this._googleAuth.loginToGoogle();
                 };
                 GmailAPI.prototype.getAllMails = function () {
                     var _this = this;
-                    var mails = [];
                     this._http.get(this.gmailRoot + '/messages', { headers: google_header_1.googleHeader }).toPromise()
                         .then(function (res) {
                         var requests = [];
@@ -56,9 +56,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../common
                         }
                         Observable_1.Observable.forkJoin(requests).subscribe(function (data) {
                             for (var item in data) {
-                                mails.push(new recievedMail_model_1.RecievedMail(data[item].id, _this._mailHelper.getHeader(data[item].payload.headers, 'From'), _this._mailHelper.getHeader(data[item].payload.headers, 'Subject'), _this._mailHelper.getHeader(data[item].payload.headers, 'Date'), _this._mailHelper.getBody(data[item].payload)));
+                                _this.mails.push(new recievedMail_model_1.RecievedMail(data[item].id, _this._mailHelper.getHeader(data[item].payload.headers, 'From'), _this._mailHelper.getHeader(data[item].payload.headers, 'Subject'), _this._mailHelper.getHeader(data[item].payload.headers, 'Date'), _this._mailHelper.getBody(data[item].payload)));
                             }
-                            return mails;
+                            return _this.mails;
                         });
                     });
                 };

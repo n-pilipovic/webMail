@@ -14,18 +14,19 @@ export class GmailAPI {
 
     private gmailRoot:string;
     private recieveMailInFormat:string;
+    public mails:Array<RecievedMail>;
 
     constructor(private _http:Http, private _googleAuth:GoogleAuth, private _mailHelper:MailHelper) {
         this.gmailRoot= 'https://www.googleapis.com/gmail/v1/users/me';
         this.recieveMailInFormat = 'full';
+        this.mails = new Array<RecievedMail>();
     }
 
     public authenticateUser():void {
         this._googleAuth.loginToGoogle();
     }
 
-    public getAllMails():Array<RecievedMail> {
-        var mails:Array<RecievedMail> = [];
+    public getAllMails():any {
         this._http.get(this.gmailRoot + '/messages', {headers: googleHeader}).toPromise()
                     .then(res => {
                             var requests = [];
@@ -36,19 +37,15 @@ export class GmailAPI {
                                 requests
                             ).subscribe(data => { 
                                 for(var item in data) {
-                                    mails.push(new RecievedMail(data[item].id, 
+                                    this.mails.push(new RecievedMail(data[item].id, 
                                                                 this._mailHelper.getHeader(data[item].payload.headers, 'From'), 
                                                                 this._mailHelper.getHeader(data[item].payload.headers, 'Subject'), 
                                                                 this._mailHelper.getHeader(data[item].payload.headers, 'Date'), 
                                                                 this._mailHelper.getBody(data[item].payload)
                                                                 )
                                                 );
-                                    // console.log('From: ', this._mailHelper.getHeader(data[item].payload.headers, 'From'));
-                                    // console.log('Subject: ', this._mailHelper.getHeader(data[item].payload.headers, 'Subject'));
-                                    // console.log('Date: ', this._mailHelper.getHeader(data[item].payload.headers, 'Date'));
-                                    // console.log('Body: ', this._mailHelper.getBody(data[item].payload));
                                 }
-                                return mails;
+                                return this.mails;
                             });
                         }
                     );

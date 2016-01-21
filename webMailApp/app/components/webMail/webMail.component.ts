@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
 import {Menu} from '../menu/menu.component';
-import {Inbox} from '../inbox/inbox.component';
+import {AllMails} from '../allMails/allMails.component';
 import {Sent} from '../sent/sent.component';
 import {WriteMail} from '../writeMail/writeMail.component';
 import {Drafts} from '../drafts/drafts.component';
@@ -15,7 +15,7 @@ import {Labels} from '../labels/labels.component';
 })
 @RouteConfig([
 	{path: '/new', component: WriteMail, as: 'Write'},
-	{path: '/inbox/...', component: Inbox, as: 'Inbox', useAsDefault: true},
+	{path: '/inbox/...', component: AllMails, as: 'AllMails', useAsDefault: true},
 	{path: '/sent', component: Sent, as: 'Sent'},
 	{path: '/drafts', component: Drafts, as: 'Drafts'},
 	{path: '/labels', component: Labels, as: 'Labels'}

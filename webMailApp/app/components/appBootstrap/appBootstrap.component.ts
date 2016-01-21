@@ -16,10 +16,13 @@ import {GoogleAuth} from '../../services/googleAuth.service';
 ])
 export class AppBootstrap {
     constructor(router:Router, auth:GoogleAuth) {
-        if (auth.access_token !== null) {
-            router.navigate(['/WebMail']);
-        } else {
-            router.navigate(['/Login']);
-        }
+        auth.googleToken()
+            .subscribe(data => {console.log(data); auth.saveToken(data.access_token);
+                if (data.access_token !== null) {
+                    router.navigate(['/WebMail']);
+                } else {
+                    router.navigate(['/Login']);
+                }
+            });
     }
 }

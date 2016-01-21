@@ -35,7 +35,7 @@ export class GoogleAuth {
                     .subscribe(data => {this.client_ID = data.client_ID;
                                         this.client_secret = data.client_secret;});
         this.token_uri = 'https://www.googleapis.com/oauth2/v4/token';
-        this.googleToken();
+        this.googleToken().subscribe(data => {console.log(data); this.saveToken(data.access_token)});
     }
     
     public loginToGoogle() {
@@ -57,30 +57,9 @@ export class GoogleAuth {
         return retVal;
     }
 
-    private googleToken() {
-        console.log('Client id: ', this.client_ID);
-        console.log('Client secret: ', this.client_secret);
-
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-
-        var tokenData = ''.concat('redirect_uri=', this.redirect_uri,
-                                  '&grant_type=authorization_code');
-        this._http.get(this.app_API_root + '/googleAuthCode')
-            .map(res => res.json())
-            .flatMap(res => {
-                if(res.code) {
-                    tokenData = tokenData.concat('&code=', res.code); 
-                    return this._http.get('../../webMailApp/lib/googleCredentials.json');
-                } else {
-                    this._router.navigate(['/Login']);
-                }
-            })
-            .map(res => res.json())
-            .flatMap(res => {tokenData = tokenData.concat('&client_id=', res.client_ID, '&client_secret=', res.client_secret);
-                             return this._http.post(this.token_uri, tokenData, {headers: headers});})
-            .map(res => res.json())
-            .subscribe(data => {console.log(data); this.saveToken(data.access_token); this._router.navigate(['/WebMail']);});
+    public googleToken() {
+        return this._http.get(this.app_API_root + '/googleAuthCode')
+            .map(res => res.json());
     }
 
     private createNonce(length):string {
@@ -92,7 +71,7 @@ export class GoogleAuth {
         return text;
     }
 
-    private saveToken(token:string):void {
+    public saveToken(token:string):void {
         this.access_token = token;
         localStorage.setItem('googleToken', token);
     }

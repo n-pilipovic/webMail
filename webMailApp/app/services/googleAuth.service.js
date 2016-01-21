@@ -44,7 +44,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx']
                         _this.client_secret = data.client_secret;
                     });
                     this.token_uri = 'https://www.googleapis.com/oauth2/v4/token';
-                    this.googleToken();
+                    this.googleToken().subscribe(function (data) { console.log(data); _this.saveToken(data.access_token); });
                 }
                 GoogleAuth.prototype.loginToGoogle = function () {
                     this.getAccessToken();
@@ -59,30 +59,8 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx']
                     return retVal;
                 };
                 GoogleAuth.prototype.googleToken = function () {
-                    var _this = this;
-                    console.log('Client id: ', this.client_ID);
-                    console.log('Client secret: ', this.client_secret);
-                    var headers = new http_1.Headers();
-                    headers.append('Content-Type', 'application/x-www-form-urlencoded');
-                    var tokenData = ''.concat('redirect_uri=', this.redirect_uri, '&grant_type=authorization_code');
-                    this._http.get(this.app_API_root + '/googleAuthCode')
-                        .map(function (res) { return res.json(); })
-                        .flatMap(function (res) {
-                        if (res.code) {
-                            tokenData = tokenData.concat('&code=', res.code);
-                            return _this._http.get('../../webMailApp/lib/googleCredentials.json');
-                        }
-                        else {
-                            _this._router.navigate(['/Login']);
-                        }
-                    })
-                        .map(function (res) { return res.json(); })
-                        .flatMap(function (res) {
-                        tokenData = tokenData.concat('&client_id=', res.client_ID, '&client_secret=', res.client_secret);
-                        return _this._http.post(_this.token_uri, tokenData, { headers: headers });
-                    })
-                        .map(function (res) { return res.json(); })
-                        .subscribe(function (data) { console.log(data); _this.saveToken(data.access_token); _this._router.navigate(['/WebMail']); });
+                    return this._http.get(this.app_API_root + '/googleAuthCode')
+                        .map(function (res) { return res.json(); });
                 };
                 GoogleAuth.prototype.createNonce = function (length) {
                     var text = '';

@@ -40,7 +40,7 @@ System.register(['angular2/core', 'angular2/router', '../../models/menuItem/menu
             exports_1("Menu", Menu);
             MENUITEMS = [
                 new menuItem_model_1.MenuItem('Write Mail', './Write'),
-                new menuItem_model_1.MenuItem('Inbox', './Inbox'),
+                new menuItem_model_1.MenuItem('Inbox', './AllMails'),
                 new menuItem_model_1.MenuItem('Sent', './Sent'),
                 new menuItem_model_1.MenuItem('Drafts', './Drafts'),
                 new menuItem_model_1.MenuItem('Labels', './Labels')

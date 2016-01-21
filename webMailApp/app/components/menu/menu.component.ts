@@ -15,7 +15,7 @@ export class Menu {
 
 var MENUITEMS:MenuItem[] = [
 	new MenuItem('Write Mail', './Write'),
-	new MenuItem('Inbox', './Inbox'),
+	new MenuItem('Inbox', './AllMails'),
 	new MenuItem('Sent', './Sent'),
 	new MenuItem('Drafts', './Drafts'),
 	new MenuItem('Labels', './Labels')

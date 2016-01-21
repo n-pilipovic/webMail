@@ -30,12 +30,17 @@ System.register(['angular2/core', 'angular2/router', '../login/login.component',
         execute: function() {
             AppBootstrap = (function () {
                 function AppBootstrap(router, auth) {
-                    if (auth.access_token !== null) {
-                        router.navigate(['/WebMail']);
-                    }
-                    else {
-                        router.navigate(['/Login']);
-                    }
+                    auth.googleToken()
+                        .subscribe(function (data) {
+                        console.log(data);
+                        auth.saveToken(data.access_token);
+                        if (data.access_token !== null) {
+                            router.navigate(['/WebMail']);
+                        }
+                        else {
+                            router.navigate(['/Login']);
+                        }
+                    });
                 }
                 AppBootstrap = __decorate([
                     core_1.Component({

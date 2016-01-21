@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../menu/menu.component', '../inbox/inbox.component', '../sent/sent.component', '../writeMail/writeMail.component', '../drafts/drafts.component', '../labels/labels.component'], function(exports_1) {
+System.register(['angular2/core', 'angular2/router', '../menu/menu.component', '../allMails/allMails.component', '../sent/sent.component', '../writeMail/writeMail.component', '../drafts/drafts.component', '../labels/labels.component'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/router', '../menu/menu.component', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, menu_component_1, inbox_component_1, sent_component_1, writeMail_component_1, drafts_component_1, labels_component_1;
+    var core_1, router_1, menu_component_1, allMails_component_1, sent_component_1, writeMail_component_1, drafts_component_1, labels_component_1;
     var WebMail;
     return {
         setters:[
@@ -21,8 +21,8 @@ System.register(['angular2/core', 'angular2/router', '../menu/menu.component', '
             function (menu_component_1_1) {
                 menu_component_1 = menu_component_1_1;
             },
-            function (inbox_component_1_1) {
-                inbox_component_1 = inbox_component_1_1;
+            function (allMails_component_1_1) {
+                allMails_component_1 = allMails_component_1_1;
             },
             function (sent_component_1_1) {
                 sent_component_1 = sent_component_1_1;
@@ -48,7 +48,7 @@ System.register(['angular2/core', 'angular2/router', '../menu/menu.component', '
                     }),
                     router_1.RouteConfig([
                         { path: '/new', component: writeMail_component_1.WriteMail, as: 'Write' },
-                        { path: '/inbox/...', component: inbox_component_1.Inbox, as: 'Inbox', useAsDefault: true },
+                        { path: '/inbox/...', component: allMails_component_1.AllMails, as: 'AllMails', useAsDefault: true },
                         { path: '/sent', component: sent_component_1.Sent, as: 'Sent' },
                         { path: '/drafts', component: drafts_component_1.Drafts, as: 'Drafts' },
                         { path: '/labels', component: labels_component_1.Labels, as: 'Labels' }

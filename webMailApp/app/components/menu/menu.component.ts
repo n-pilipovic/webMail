@@ -1,7 +1,6 @@
 import {Component} from 'angular2/core';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {MenuItem} from '../../models/menuItem/menuItem.model';
-import {Inbox} from '../inbox/inbox.component';
 
 @Component({
 	selector: 'menu',

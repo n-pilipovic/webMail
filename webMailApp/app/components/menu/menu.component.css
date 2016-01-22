@@ -2,3 +2,8 @@
 	list-style: none;
 	padding: 0;
 }
+
+.webmail-menu-list-item {
+    display: inline;
+    margin-right: 25px;
+}

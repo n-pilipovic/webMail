@@ -5,11 +5,11 @@ export class RecievedMail {
     public date:string;
     public body:string;
     
-    constructor(id:string, from:string, subject:string, date:string, body:string) {
-        this.id = id;
-        this.from = from;
-        this.subject = subject;
-        this.date = date;
-        this.body = body;
+    constructor(id?:string, from?:string, subject?:string, date?:string, body?:string) {
+        this.id = id || '';
+        this.from = from || '';
+        this.subject = subject || '';
+        this.date = date || '';
+        this.body = body || '';
     }
 }

@@ -35,7 +35,6 @@ export class GoogleAuth {
                     .subscribe(data => {this.client_ID = data.client_ID;
                                         this.client_secret = data.client_secret;});
         this.token_uri = 'https://www.googleapis.com/oauth2/v4/token';
-        this.googleToken().subscribe(data => {console.log(data); this.saveToken(data.access_token)});
     }
     
     public loginToGoogle() {

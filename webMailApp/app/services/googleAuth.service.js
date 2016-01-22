@@ -44,7 +44,6 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx']
                         _this.client_secret = data.client_secret;
                     });
                     this.token_uri = 'https://www.googleapis.com/oauth2/v4/token';
-                    this.googleToken().subscribe(function (data) { console.log(data); _this.saveToken(data.access_token); });
                 }
                 GoogleAuth.prototype.loginToGoogle = function () {
                     this.getAccessToken();

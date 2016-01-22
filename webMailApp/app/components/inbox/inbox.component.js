@@ -23,19 +23,23 @@ System.register(['angular2/core', 'angular2/router', '../../services/gmailApi.se
             }],
         execute: function() {
             Inbox = (function () {
-                function Inbox(_gmailAPI) {
+                function Inbox(_gmailAPI, _router) {
                     this._gmailAPI = _gmailAPI;
+                    this._router = _router;
                     this._gmailAPI.getAllMails();
                     this.allMails = this._gmailAPI.mails;
                 }
+                Inbox.prototype.openMail = function (_id) {
+                    this._router.parent.navigate(['./ReadMail', { id: _id }]);
+                };
                 Inbox = __decorate([
                     core_1.Component({
-                        selector: 'inbox',
                         templateUrl: 'app/components/inbox/inbox.component.html',
+                        styleUrls: ['app/components/inbox/inbox.component.css'],
                         directives: [router_1.ROUTER_DIRECTIVES],
                         providers: [gmailApi_service_1.GmailAPI]
                     }), 
-                    __metadata('design:paramtypes', [gmailApi_service_1.GmailAPI])
+                    __metadata('design:paramtypes', [gmailApi_service_1.GmailAPI, router_1.Router])
                 ], Inbox);
                 return Inbox;
             })();

@@ -27,6 +27,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// Allow CORS
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // mount the router on the app
 app.use('/api', router);
 
@@ -43,7 +50,6 @@ app.get('/webMailApp', function (req, res) {
 // Router for small API
 router.get('/googleAuthCallback', function(req, res, next) {
     console.log(req.query.code);
-    googleAccessToken = req.query.code;
     tokenData = tokenData.concat('&code=', req.query.code);
 
     // prepare header
@@ -62,8 +68,10 @@ router.get('/googleAuthCallback', function(req, res, next) {
         restClient.post('https://www.googleapis.com/oauth2/v4/token', optionsPost, function(data, response) {
             console.log('POST result:\n', data);
             googleAccessToken = data.access_token;
+            res.redirect('https://localhost:8080/webMailApp/');
         });
     } else {
+        googleAccessToken = null;
         res.redirect('https://localhost:8080/webMailApp/');
     }
 });

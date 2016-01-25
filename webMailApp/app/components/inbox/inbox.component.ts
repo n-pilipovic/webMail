@@ -16,7 +16,7 @@ import {GmailAPI} from '../../services/gmailApi.service';
 export class Inbox {
     public allMails:Array<RecievedMail>;
 	constructor(private _gmailAPI:GmailAPI, private _router:Router) {
-		this._gmailAPI.getAllMails();
+		this._gmailAPI.getAllMails(['INBOX']);
         this.allMails = this._gmailAPI.mails;
 	}
     

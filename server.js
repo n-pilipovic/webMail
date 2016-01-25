@@ -2,6 +2,7 @@
  * Created by novica on 14.1.16..
  */
 var fs = require('fs');
+var jwt = require('jsonwebtoken');
 var https = require('https');
 var express = require('express');
 var app = express();
@@ -10,11 +11,11 @@ var errorHandler = require('errorhandler');
 var RestClient = require('node-rest-client').Client;
 
 var config = require('./config');
+var serverPort = 8080;
 
 var token_uri = 'https://www.googleapis.com/oauth2/v4/token';
 var redirect_uri = 'https://localhost:8080/api/googleAuthCallback';
-var tokenData = ''.concat('redirect_uri=', redirect_uri, '&grant_type=authorization_code', '&client_id=', config.google.client_id, '&client_secret=', config.google.client_secret);
-
+var tokenData = ''.concat('redirect_uri=', redirect_uri, '&grant_type=authorization_code', '&client_id=', config.google.client_id, '&client_secret=', config.google.client_secret, '&prompt=consent');
 
 var router = express.Router();
 
@@ -34,6 +35,23 @@ app.use(function(req, res, next) {
   next();
 });
 
+var options = {
+    key: fs.readFileSync('./certificates/localhost-key.pem'),
+    cert: fs.readFileSync('./certificates/localhost-cert.pem')
+};
+
+var server = https.createServer(options, app);
+server.listen(serverPort, function() {
+    console.log("Simple static server showing /webMailApp listening at https://localhost:%s", serverPort);
+});
+
+var socketio = require('socket.io')(server);
+// Create separate namespace only for socket calls
+var appIO = socketio.of('/socketAPI');
+appIO.on('connection', function(socket) {
+    console.log('webMailApp connected to socket!');
+});
+
 // mount the router on the app
 app.use('/api', router);
 
@@ -49,7 +67,7 @@ app.get('/webMailApp', function (req, res) {
 
 // Router for small API
 router.get('/googleAuthCallback', function(req, res, next) {
-    console.log(req.query.code);
+    console.log('Request query: ', req.query);
     tokenData = tokenData.concat('&code=', req.query.code);
 
     // prepare header
@@ -68,20 +86,15 @@ router.get('/googleAuthCallback', function(req, res, next) {
         restClient.post('https://www.googleapis.com/oauth2/v4/token', optionsPost, function(data, response) {
             console.log('POST result:\n', data);
             googleAccessToken = data.access_token;
-            res.redirect('https://localhost:8080/webMailApp/');
+            console.log('Token data recieved from Google: ', jwt.decode(data.id_token));
+            appIO.emit('accessTokenRecieved', {access_token: googleAccessToken});
+            // res.redirect('https://localhost:' + serverPort + '/webMailApp/');
         });
     } else {
         googleAccessToken = null;
-        res.redirect('https://localhost:8080/webMailApp/');
+        res.redirect('https://localhost:' + serverPort + '/webMailApp/');
     }
 });
 router.get('/googleAuthCode', function(req, res, next) {
    res.json({access_token: googleAccessToken});
 });
-
-https.createServer({
-    key: fs.readFileSync('./certificates/localhost-key.pem'),
-    cert: fs.readFileSync('./certificates/localhost-cert.pem')
-}, app).listen(8080);
-
-console.log("Simple static server showing /webMailApp listening at https://localhost:%s", '8080');

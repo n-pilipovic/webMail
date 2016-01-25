@@ -36,4 +36,14 @@ export class MailHelper {
         }
         return '';
     }
+    
+    public queryWithLabels(labels:Array<string>):string {
+        var retVal = '';
+        for(var label in labels) {
+            if(!!labels[label]) {
+                retVal.concat('&labelIds=', label);
+            }
+        }
+        return retVal;
+    }
 }

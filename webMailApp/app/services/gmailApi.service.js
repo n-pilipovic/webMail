@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../utils/mail.helper', '../models/recievedMail/recievedMail.model', './googleAuth.service'], function(exports_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../utils/mail.helper', '../models/messagesSettings/messagesSettings.model', '../models/recievedMail/recievedMail.model', './googleAuth.service'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../utils/
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, http_1, Observable_1, mail_helper_1, recievedMail_model_1, googleAuth_service_1;
+    var core_1, http_1, Observable_1, mail_helper_1, messagesSettings_model_1, recievedMail_model_1, googleAuth_service_1;
     var GmailAPI;
     return {
         setters:[
@@ -24,6 +24,9 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../utils/
             function (mail_helper_1_1) {
                 mail_helper_1 = mail_helper_1_1;
             },
+            function (messagesSettings_model_1_1) {
+                messagesSettings_model_1 = messagesSettings_model_1_1;
+            },
             function (recievedMail_model_1_1) {
                 recievedMail_model_1 = recievedMail_model_1_1;
             },
@@ -38,6 +41,7 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../utils/
                     this._mailHelper = _mailHelper;
                     this.gmailRoot = 'https://www.googleapis.com/gmail/v1/users/me';
                     this.recieveMailInFormat = 'full';
+                    this.messagesSettings = new messagesSettings_model_1.MessagesSettings();
                     this.mails = new Array();
                     this.mail = new recievedMail_model_1.RecievedMail();
                     this.googleHeader = new http_1.Headers();
@@ -46,13 +50,16 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Observable', '../utils/
                 GmailAPI.prototype.authenticateUser = function () {
                     this._googleAuth.loginToGoogle();
                 };
-                GmailAPI.prototype.getAllMails = function () {
+                GmailAPI.prototype.getAllMails = function (label) {
                     var _this = this;
                     this._http.get(this.gmailRoot + '/messages', { headers: this.googleHeader }).toPromise()
                         .then(function (res) {
+                        var data = res.json();
+                        _this.messagesSettings.setPageToken(data.nextPageToken);
+                        _this.messagesSettings.setTotalNumberOfMessages(data.resultSizeEstimate);
                         var requests = [];
-                        for (var message in res.json().messages) {
-                            requests.push(_this._http.get(_this.gmailRoot + '/messages/' + res.json().messages[message].id + '?format=' + _this.recieveMailInFormat, { headers: _this.googleHeader }).map(function (res) { return res.json(); }));
+                        for (var message in data.messages) {
+                            requests.push(_this._http.get(_this.gmailRoot + '/messages/' + data.messages[message].id + '?format=' + _this.recieveMailInFormat + _this._mailHelper.queryWithLabels(label), { headers: _this.googleHeader }).map(function (res) { return res.json(); }));
                         }
                         Observable_1.Observable.forkJoin(requests).subscribe(function (data) {
                             for (var item in data) {

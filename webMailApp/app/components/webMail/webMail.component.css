@@ -1,5 +1,8 @@
 .webmail-menu-wrapper {
-	padding: 0;
+	padding: 20px 0;
+    margin: 0;
+    background-color: orange;
+    color: black;
 }
 
 .webmail-main-frame {

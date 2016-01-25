@@ -30,8 +30,16 @@ System.register(['angular2/core', 'angular2/router', '../login/login.component',
         execute: function() {
             AppBootstrap = (function () {
                 function AppBootstrap(router, auth) {
-                    auth.googleToken()
-                        .subscribe(function (data) {
+                    var socket = io.connect('https://localhost:8080/socketAPI');
+                    // auth.googleToken()
+                    //     .subscribe(data => {console.log(data); auth.saveToken(data.access_token);
+                    //         if (data.access_token !== null) {
+                    //             router.navigate(['/WebMail']);
+                    //         } else {
+                    //             router.navigate(['/Login']);
+                    //         }
+                    //     });
+                    socket.on('accessTokenRecieved', function (data) {
                         console.log(data);
                         auth.saveToken(data.access_token);
                         if (data.access_token !== null) {

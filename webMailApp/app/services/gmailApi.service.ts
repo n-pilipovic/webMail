@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 // import {googleHeader} from '../common/headers/google.header';
 import {MailHelper} from '../utils/mail.helper';
 
+import {MessagesSettings} from '../models/messagesSettings/messagesSettings.model';
 import {RecievedMail} from '../models/recievedMail/recievedMail.model';
 
 import {GoogleAuth} from './googleAuth.service';
@@ -15,12 +16,14 @@ export class GmailAPI {
     private gmailRoot:string;
     private recieveMailInFormat:string;
     private googleHeader:Headers;
+    public messagesSettings:MessagesSettings;
     public mails:Array<RecievedMail>;
     public mail:RecievedMail;
     
     constructor(private _http:Http, private _googleAuth:GoogleAuth, private _mailHelper:MailHelper) {
         this.gmailRoot= 'https://www.googleapis.com/gmail/v1/users/me';
         this.recieveMailInFormat = 'full';
+        this.messagesSettings = new MessagesSettings();
         this.mails = new Array<RecievedMail>();
         this.mail = new RecievedMail();
         this.googleHeader = new Headers();
@@ -31,12 +34,15 @@ export class GmailAPI {
         this._googleAuth.loginToGoogle();
     }
 
-    public getAllMails():any {
+    public getAllMails(label?:Array<string>):any {
         this._http.get(this.gmailRoot + '/messages', {headers: this.googleHeader}).toPromise()
                     .then(res => {
+                            var data = res.json();
+                            this.messagesSettings.setPageToken(data.nextPageToken); 
+                            this.messagesSettings.setTotalNumberOfMessages(data.resultSizeEstimate);
                             var requests = [];
-                            for(var message in res.json().messages) {
-                                requests.push(this._http.get(this.gmailRoot + '/messages/' + res.json().messages[message].id + '?format=' + this.recieveMailInFormat, {headers: this.googleHeader}).map(res => res.json()));
+                            for(var message in data.messages) {
+                                requests.push(this._http.get(this.gmailRoot + '/messages/' + data.messages[message].id + '?format=' + this.recieveMailInFormat + this._mailHelper.queryWithLabels(label), {headers: this.googleHeader}).map(res => res.json()));
                             }
                             Observable.forkJoin(
                                 requests

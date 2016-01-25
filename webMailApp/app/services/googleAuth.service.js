@@ -54,7 +54,7 @@ System.register(['angular2/core', 'angular2/http', 'angular2/router', 'rxjs/Rx']
                 };
                 GoogleAuth.prototype.createUrlWithParameters = function () {
                     var retVal = this.authRoot;
-                    retVal = retVal.concat('scope=', this.authScope, '&client_id=', this.client_ID, '&response_type=', this.response_type, '&state=', this.initialAppState, '&redirect_uri=', this.redirect_uri, '&access_type', this.access_type);
+                    retVal = retVal.concat('scope=', this.authScope, '&client_id=', this.client_ID, '&response_type=', this.response_type, '&state=', this.initialAppState, '&redirect_uri=', this.redirect_uri, '&access_type', this.access_type, '&approval_prompt=force');
                     return retVal;
                 };
                 GoogleAuth.prototype.googleToken = function () {

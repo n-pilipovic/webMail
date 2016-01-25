@@ -16,13 +16,23 @@ import {GoogleAuth} from '../../services/googleAuth.service';
 ])
 export class AppBootstrap {
     constructor(router:Router, auth:GoogleAuth) {
-        auth.googleToken()
-            .subscribe(data => {console.log(data); auth.saveToken(data.access_token);
-                if (data.access_token !== null) {
+        var socket = io.connect('https://localhost:8080/socketAPI');
+        // auth.googleToken()
+        //     .subscribe(data => {console.log(data); auth.saveToken(data.access_token);
+        //         if (data.access_token !== null) {
+        //             router.navigate(['/WebMail']);
+        //         } else {
+        //             router.navigate(['/Login']);
+        //         }
+        //     });
+        socket.on('accessTokenRecieved', function(data) {
+            console.log(data);
+            auth.saveToken(data.access_token);
+            if (data.access_token !== null) {
                     router.navigate(['/WebMail']);
                 } else {
                     router.navigate(['/Login']);
                 }
-            });
+        });
     }
 }

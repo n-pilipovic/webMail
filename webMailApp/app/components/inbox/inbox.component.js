@@ -26,7 +26,7 @@ System.register(['angular2/core', 'angular2/router', '../../services/gmailApi.se
                 function Inbox(_gmailAPI, _router) {
                     this._gmailAPI = _gmailAPI;
                     this._router = _router;
-                    this._gmailAPI.getAllMails();
+                    this._gmailAPI.getAllMails(['INBOX']);
                     this.allMails = this._gmailAPI.mails;
                 }
                 Inbox.prototype.openMail = function (_id) {

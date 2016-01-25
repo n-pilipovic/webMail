@@ -52,7 +52,8 @@ export class GoogleAuth {
                                '&response_type=', this.response_type,
                                '&state=', this.initialAppState,
                                '&redirect_uri=', this.redirect_uri,
-                               '&access_type', this.access_type);
+                               '&access_type', this.access_type,
+                               '&approval_prompt=force');
         return retVal;
     }
 

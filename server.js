@@ -87,8 +87,13 @@ router.get('/googleAuthCallback', function(req, res, next) {
             console.log('POST result:\n', data);
             googleAccessToken = data.access_token;
             console.log('Token data recieved from Google: ', jwt.decode(data.id_token));
+            var tokenParsed = jwt.decode(data.id_token);
+            var expDate = new Date(tokenParsed.exp * 1000);
+            var nowDate = new Date();
+            console.log('Expiration token date: ', expDate);
+            console.log('Current date: ', nowDate);
             appIO.emit('accessTokenRecieved', {access_token: googleAccessToken});
-            // res.redirect('https://localhost:' + serverPort + '/webMailApp/');
+            res.redirect('https://localhost:' + serverPort + '/webMailApp/');
         });
     } else {
         googleAccessToken = null;
